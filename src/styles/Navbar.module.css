@@ -1,0 +1,51 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-color);
+  letter-spacing: -0.05em;
+}
+
+.brand {
+  color: var(--secondary);
+  margin-right: 0.1rem;
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: var(--transition);
+}
+
+.link:hover {
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
