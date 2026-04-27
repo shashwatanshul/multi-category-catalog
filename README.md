@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Multi-Category Catalog
 
-## Getting Started
+A Next.js catalog app that groups items by category, with a home page carousel and detail pages for each item.
 
-First, run the development server:
+**Live website:** [https://multi-category-catalog-two.vercel.app/](https://multi-category-catalog-two.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech stack
+
+| Area       | Technology                                             |
+| ---------- | ------------------------------------------------------ |
+| Framework  | [Next.js](https://nextjs.org/) 16 (App Router)         |
+| UI         | [React](https://react.dev/) 19                         |
+| Styling    | CSS Modules + global styles (`src/styles/`)            |
+| Carousel   | [Swiper](https://swiperjs.com/) 12                     |
+| Linting    | ESLint 9 with `eslint-config-next`                     |
+| Deployment | [Vercel](https://vercel.com/) (example live URL above) |
+
+Imports can use the `@/*` alias (configured in `jsconfig.json`) to reference files under `src/`.
+
+## Project structure
+
+```
+catalog/
+├── public/                 # Static assets served at the site root
+├── src/
+│   ├── app/                # Next.js App Router
+│   │   ├── layout.js       # Root layout (metadata, fonts, global CSS)
+│   │   ├── page.js         # Home: category filter + Swiper + product grid
+│   │   └── items/
+│   │       └── [slug]/     # Dynamic segment for item detail URLs
+│   │           └── page.js # Single item detail view
+│   ├── components/         # Reusable UI
+│   │   ├── Navbar/
+│   │   └── ProductCard/
+│   ├── data/
+│   │   └── data.json       # Catalog source data (categories, items)
+│   ├── lib/
+│   │   └── data.js         # Helpers: slugify, getAllItems, getCategories, getItemBySlug
+│   └── styles/             # globals.css + *.module.css per feature
+├── eslint.config.mjs
+├── jsconfig.json           # Path alias: @/* → ./src/*
+├── next.config.mjs
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Generated folders (not committed in a typical setup): `node_modules/`, `.next/`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Node.js** — use an [LTS](https://nodejs.org/) version compatible with Next.js 16 (Node 20.9+ is a safe choice; check [Next.js system requirements](https://nextjs.org/docs/app/getting-started/installation) if you upgrade).
 
-## Learn More
+- **npm** (bundled with Node), or **pnpm** / **yarn** / **bun** if you prefer.
 
-To learn more about Next.js, take a look at the following resources:
+## Local development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository** and open the project root (the folder that contains `package.json`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install dependencies**
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Start the dev server**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser. Edits under `src/` hot-reload while the dev server is running.
+
+### Other scripts
+
+| Command         | Purpose                                       |
+| --------------- | --------------------------------------------- |
+| `npm run dev`   | Development server with hot reload            |
+| `npm run build` | Production build                              |
+| `npm run start` | Run the production server (run `build` first) |
+| `npm run lint`  | Run ESLint                                    |
+
+## Data and routing
+
+- Catalog content lives in `src/data/data.json`. The helpers in `src/lib/data.js` derive slugs and group items by category.
+- Home: `/`
+- Item detail: `/items/<slug>` where `<slug>` matches the slug generated from each item’s name.
+
+## Deploying
+
+This project is set up like a standard Next.js app. [Vercel](https://vercel.com/docs/frameworks/nextjs) is the simplest path: connect the Git repo, use the default Next.js settings, and deploy. The live demo above is hosted on Vercel.
+
+## Learn more
+
+- [Next.js documentation](https://nextjs.org/docs)
+- [Next.js learn tutorial](https://nextjs.org/learn)
